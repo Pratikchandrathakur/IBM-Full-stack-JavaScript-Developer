@@ -27,3 +27,9 @@ let books = [];
     );
     document.getElementById('books').innerHTML = booksDiv.join('');
 }
+ function clearInputs() {
+            document.getElementById('bookName').value = '';
+            document.getElementById('authorName').value = '';
+            document.getElementById('bookDescription').value = '';
+            document.getElementById('pagesNumber').value = '';
+ }
