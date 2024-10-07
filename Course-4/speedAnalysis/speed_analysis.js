@@ -2,51 +2,55 @@ let testText = "The quick brown fox jumps over the lazy dog.";
 let startTime, endTime;
 
 function startTest() {
-// Set the test text
-document.getElementById("inputText").value = testText;
+    // Set the test text
+    document.getElementById("inputText").value = testText;
 
-// Reset results and timer
-document.getElementById("output").innerHTML = "";
-startTime = new Date().getTime();
+    // Clear user input and make it editable
+    document.getElementById("userInput").value = "";  // Clear the input
+    document.getElementById("userInput").readOnly = false;  // Enable input
 
-// Change button text and functionality
-var button = document.getElementById("btn");
-button.innerHTML = "End Test";
-button.onclick = endTest;
-        }
+    // Reset results and timer
+    document.getElementById("output").innerHTML = "";
+    startTime = new Date().getTime();
 
- function endTest() {
-            endTime = new Date().getTime();
+    // Change button text and functionality
+    var button = document.getElementById("btn");
+    button.innerHTML = "End Test";
+    button.onclick = endTest;
+}
 
-            // Disable user input
-            document.getElementById("userInput").readOnly = true;
+function endTest() {
+    endTime = new Date().getTime();
 
-            // Calculate time elapsed and words per minute (WPM)
-            var timeElapsed = (endTime - startTime) / 1000; // in seconds
-            var userTypedText = document.getElementById("userInput").value;
+    // Disable user input
+    document.getElementById("userInput").readOnly = true;
 
-            // Split the text using regex to count words correctly
-            var typedWords = userTypedText.split(/\s+/).filter(function (word) {
-                return word !== "";
-            }).length;
+    // Calculate time elapsed and words per minute (WPM)
+    var timeElapsed = (endTime - startTime) / 1000; // in seconds
+    var userTypedText = document.getElementById("userInput").value;
 
-            var wpm = 0; // Default value
+    // Split the text using regex to count words correctly
+    var typedWords = userTypedText.split(/\s+/).filter(function (word) {
+        return word !== "";
+    }).length;
 
-            if (timeElapsed !== 0 && !isNaN(typedWords)) {
-                wpm = Math.round((typedWords / timeElapsed) * 60);
-            }
+    var wpm = 0; // Default value
 
-            // Display the results
-            var outputDiv = document.getElementById("output");
-            outputDiv.innerHTML = "<h2>Typing Test Results:</h2>" +
-                "<p>Words Typed: " + typedWords + "</p>" +
-                "<p>Time Elapsed: " + timeElapsed.toFixed(2) + " seconds</p>" +
-                "<p>Words Per Minute (WPM): " + wpm + "</p>";
+    if (timeElapsed !== 0 && !isNaN(typedWords)) {
+        wpm = Math.round((typedWords / timeElapsed) * 60);
+    }
 
-            // Reset the button
-            var button = document.getElementById("btn");
-            button.innerHTML = "Reset Test";
-            userTypedText=null;
-            button.onclick = startTest;
-        }
+    // Display the results
+    var outputDiv = document.getElementById("output");
+    outputDiv.innerHTML = "<h2>Typing Test Results:</h2>" +
+        "<p>Words Typed: " + typedWords + "</p>" +
+        "<p>Time Elapsed: " + timeElapsed.toFixed(2) + " seconds</p>" +
+        "<p>Words Per Minute (WPM): " + wpm + "</p>";
 
+    // Reset the button
+    var button = document.getElementById("btn");
+    button.innerHTML = "Reset Test";
+    
+    // Make sure the input field is cleared and ready for new input
+    button.onclick = startTest;
+}
