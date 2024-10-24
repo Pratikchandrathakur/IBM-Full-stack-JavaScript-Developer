@@ -19,3 +19,5 @@ const timerElement = document.getElementById('timer');
                gameContainer.appendChild(card);
            }
        }
+
+    
